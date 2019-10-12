@@ -4,8 +4,39 @@ https://github.com/HouzuoGuo/tiedot
 
 ```go
 // db/col_test.go
+package db
 
+import (
+  "encoding/json"
+  "io/ioutil"
+  "os"
+  "reflect"
+  "strings"
+  "testing"
+  
+  "bou.ke/monkey"
+  "github.com/HouzuoGuo/tiedot/data"
+  "github.com/pkg/errors"
+)
 
+func TestColMkDirErr(t *testing.T) {
+  db, _ := OpenDB(TEST_DATA_DIR)
+  errMessage := "Error mak dir"
+  patch := monkey.Patch(os.MkdirAll, func(path string, perm os.File))
+  defer patch.Unpatch()
+  _, err := openCol(db, "test")
+  if err.Error() != errMessage {
+    t.Error("Expected error message make dir")
+  }
+}
+
+func TestOpenPartitionErr(t *testing.T) {
+
+}
+
+func TestOpenReadDirErr(t *testing.T) {
+
+}
 
 func TestLoadErrorOpenHashTableWhenParseIndex(t *testing.T) {
   defer os.RemoveAll(TEST_DATA_DIR)
@@ -30,8 +61,11 @@ func TestLoadErrorOpenHashTableWhenParseIndex(t *testing.T) {
   }
 }
 
+func TestClose(t *testing.T) {
 
+}
 
+func TestInde 
 
 
 
